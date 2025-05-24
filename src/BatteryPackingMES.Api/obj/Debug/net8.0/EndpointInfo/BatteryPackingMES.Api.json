@@ -1,0 +1,1218 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "锂电池包装工序MES系统 API",
+    "description": "专为锂电池制造企业设计的制造执行系统API文档",
+    "contact": {
+      "name": "开发团队",
+      "email": "dev@battery-mes.com"
+    },
+    "version": "v1.0"
+  },
+  "paths": {
+    "/api/Process": {
+      "get": {
+        "tags": [
+          "Process"
+        ],
+        "summary": "获取所有工序",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessListApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Process"
+        ],
+        "summary": "创建工序",
+        "requestBody": {
+          "description": "工序信息",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Process"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Process"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Process"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int64ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Process/{id}": {
+      "get": {
+        "tags": [
+          "Process"
+        ],
+        "summary": "根据ID获取工序",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "工序ID",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Process"
+        ],
+        "summary": "更新工序",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "工序ID",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "工序信息",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Process"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Process"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Process"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Process"
+        ],
+        "summary": "删除工序",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "工序ID",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Process/paged": {
+      "get": {
+        "tags": [
+          "Process"
+        ],
+        "summary": "分页获取工序列表",
+        "parameters": [
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "页码",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "页大小",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "processType",
+            "in": "query",
+            "description": "工序类型",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/ProcessType"
+            }
+          },
+          {
+            "name": "isEnabled",
+            "in": "query",
+            "description": "是否启用",
+            "style": "form",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessPagedResponseApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Process/batch": {
+      "delete": {
+        "tags": [
+          "Process"
+        ],
+        "summary": "批量删除工序",
+        "requestBody": {
+          "description": "工序ID列表",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ProductionBatch": {
+      "get": {
+        "tags": [
+          "ProductionBatch"
+        ],
+        "summary": "获取所有生产批次",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionBatchListApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ProductionBatch"
+        ],
+        "summary": "创建生产批次",
+        "requestBody": {
+          "description": "生产批次信息",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionBatch"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionBatch"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionBatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int64ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ProductionBatch/{id}": {
+      "get": {
+        "tags": [
+          "ProductionBatch"
+        ],
+        "summary": "根据ID获取生产批次",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "批次ID",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionBatchApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ProductionBatch"
+        ],
+        "summary": "更新生产批次",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "批次ID",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "生产批次信息",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionBatch"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionBatch"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductionBatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ProductionBatch"
+        ],
+        "summary": "删除生产批次",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "批次ID",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ProductionBatch/paged": {
+      "get": {
+        "tags": [
+          "ProductionBatch"
+        ],
+        "summary": "分页获取生产批次列表",
+        "parameters": [
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "页码",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "页大小",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "批次状态",
+            "style": "form",
+            "schema": {
+              "$ref": "#/components/schemas/BatchStatus"
+            }
+          },
+          {
+            "name": "productCode",
+            "in": "query",
+            "description": "产品编码",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "开始时间",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "结束时间",
+            "style": "form",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductionBatchPagedResponseApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ProductionBatch/{id}/start": {
+      "post": {
+        "tags": [
+          "ProductionBatch"
+        ],
+        "summary": "启动生产批次",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "批次ID",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ProductionBatch/{id}/complete": {
+      "post": {
+        "tags": [
+          "ProductionBatch"
+        ],
+        "summary": "完成生产批次",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "批次ID",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "是否成功"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息",
+            "nullable": true
+          },
+          "data": {
+            "description": "响应数据",
+            "nullable": true
+          },
+          "errorCode": {
+            "type": "string",
+            "description": "错误代码",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "时间戳",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "无数据的API响应"
+      },
+      "BatchStatus": {
+        "enum": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "Int64ApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "是否成功"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息",
+            "nullable": true
+          },
+          "data": {
+            "type": "integer",
+            "description": "响应数据",
+            "format": "int64"
+          },
+          "errorCode": {
+            "type": "string",
+            "description": "错误代码",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "时间戳",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "API响应基类"
+      },
+      "Process": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "updatedTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "processCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "processName": {
+            "type": "string",
+            "nullable": true
+          },
+          "processType": {
+            "$ref": "#/components/schemas/ProcessType"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "standardTime": {
+            "type": "number",
+            "format": "double"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          },
+          "sortOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parameterConfig": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProcessApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "是否成功"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/Process"
+          },
+          "errorCode": {
+            "type": "string",
+            "description": "错误代码",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "时间戳",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "API响应基类"
+      },
+      "ProcessListApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "是否成功"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Process"
+            },
+            "description": "响应数据",
+            "nullable": true
+          },
+          "errorCode": {
+            "type": "string",
+            "description": "错误代码",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "时间戳",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "API响应基类"
+      },
+      "ProcessPagedResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Process"
+            },
+            "description": "数据列表",
+            "nullable": true
+          },
+          "total": {
+            "type": "integer",
+            "description": "总数量",
+            "format": "int32"
+          },
+          "pageIndex": {
+            "type": "integer",
+            "description": "页码",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "页大小",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "总页数",
+            "format": "int32",
+            "readOnly": true
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "description": "是否有下一页",
+            "readOnly": true
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "description": "是否有上一页",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "分页响应数据"
+      },
+      "ProcessPagedResponseApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "是否成功"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ProcessPagedResponse"
+          },
+          "errorCode": {
+            "type": "string",
+            "description": "错误代码",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "时间戳",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "API响应基类"
+      },
+      "ProcessRoute": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "updatedTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "routeCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "routeName": {
+            "type": "string",
+            "nullable": true
+          },
+          "productType": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "isEnabled": {
+            "type": "boolean"
+          },
+          "versionNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "routeConfig": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProcessType": {
+        "enum": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "ProductionBatch": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "updatedTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "batchNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "productCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "productName": {
+            "type": "string",
+            "nullable": true
+          },
+          "processRouteId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "plannedQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "completedQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "qualifiedQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/BatchStatus"
+          },
+          "plannedStartTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "plannedEndTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "actualStartTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "actualEndTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "remarks": {
+            "type": "string",
+            "nullable": true
+          },
+          "processRoute": {
+            "$ref": "#/components/schemas/ProcessRoute"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductionBatchApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "是否成功"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ProductionBatch"
+          },
+          "errorCode": {
+            "type": "string",
+            "description": "错误代码",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "时间戳",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "API响应基类"
+      },
+      "ProductionBatchListApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "是否成功"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductionBatch"
+            },
+            "description": "响应数据",
+            "nullable": true
+          },
+          "errorCode": {
+            "type": "string",
+            "description": "错误代码",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "时间戳",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "API响应基类"
+      },
+      "ProductionBatchPagedResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductionBatch"
+            },
+            "description": "数据列表",
+            "nullable": true
+          },
+          "total": {
+            "type": "integer",
+            "description": "总数量",
+            "format": "int32"
+          },
+          "pageIndex": {
+            "type": "integer",
+            "description": "页码",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "页大小",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "总页数",
+            "format": "int32",
+            "readOnly": true
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "description": "是否有下一页",
+            "readOnly": true
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "description": "是否有上一页",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "分页响应数据"
+      },
+      "ProductionBatchPagedResponseApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "description": "是否成功"
+          },
+          "message": {
+            "type": "string",
+            "description": "响应消息",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ProductionBatchPagedResponse"
+          },
+          "errorCode": {
+            "type": "string",
+            "description": "错误代码",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "integer",
+            "description": "时间戳",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "API响应基类"
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}

@@ -1,0 +1,2162 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BatteryPackingMES.Api</name>
+    </assembly>
+    <members>
+        <member name="T:BatteryPackingMES.Api.Controllers.AuthController">
+            <summary>
+            认证控制器
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.AuthController.Login(BatteryPackingMES.Api.Controllers.LoginRequest)">
+            <summary>
+            用户登录
+            </summary>
+            <param name="request">登录请求</param>
+            <returns>登录结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.AuthController.RefreshToken(BatteryPackingMES.Api.Controllers.RefreshTokenRequest)">
+            <summary>
+            刷新令牌
+            </summary>
+            <param name="request">刷新令牌请求</param>
+            <returns>新的令牌</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.AuthController.Logout(BatteryPackingMES.Api.Controllers.LogoutRequest)">
+            <summary>
+            用户登出
+            </summary>
+            <param name="request">登出请求</param>
+            <returns>登出结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.AuthController.GetProfile">
+            <summary>
+            获取当前用户信息
+            </summary>
+            <returns>用户信息</returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.LoginRequest">
+            <summary>
+            登录请求
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.LoginRequest.Username">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.LoginRequest.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.RefreshTokenRequest">
+            <summary>
+            刷新令牌请求
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.RefreshTokenRequest.RefreshToken">
+            <summary>
+            刷新令牌
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.LogoutRequest">
+            <summary>
+            登出请求
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.LogoutRequest.RefreshToken">
+            <summary>
+            刷新令牌
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.LoginResponse">
+            <summary>
+            登录响应
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.LoginResponse.Token">
+            <summary>
+            JWT令牌
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.LoginResponse.RefreshToken">
+            <summary>
+            刷新令牌
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.LoginResponse.TokenExpiry">
+            <summary>
+            令牌过期时间
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.LoginResponse.User">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.TokenResponse">
+            <summary>
+            令牌响应
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.TokenResponse.Token">
+            <summary>
+            JWT令牌
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.TokenResponse.RefreshToken">
+            <summary>
+            刷新令牌
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.TokenResponse.TokenExpiry">
+            <summary>
+            令牌过期时间
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.UserInfo">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.UserInfo.Id">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.UserInfo.Username">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.UserInfo.RealName">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.UserInfo.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.ProcessController">
+            <summary>
+            工序管理控制器
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.ProcessController.GetAllProcesses">
+            <summary>
+            获取所有工序
+            </summary>
+            <returns>工序列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.ProcessController.GetProcessById(System.Int64)">
+            <summary>
+            根据ID获取工序
+            </summary>
+            <param name="id">工序ID</param>
+            <returns>工序信息</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.ProcessController.GetPagedProcesses(System.Int32,System.Int32,System.Nullable{BatteryPackingMES.Core.Enums.ProcessType},System.Nullable{System.Boolean})">
+            <summary>
+            分页获取工序列表
+            </summary>
+            <param name="pageIndex">页码</param>
+            <param name="pageSize">页大小</param>
+            <param name="processType">工序类型</param>
+            <param name="isEnabled">是否启用</param>
+            <returns>分页工序列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.ProcessController.CreateProcess(BatteryPackingMES.Core.Entities.Process)">
+            <summary>
+            创建工序
+            </summary>
+            <param name="process">工序信息</param>
+            <returns>创建结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.ProcessController.UpdateProcess(System.Int64,BatteryPackingMES.Core.Entities.Process)">
+            <summary>
+            更新工序
+            </summary>
+            <param name="id">工序ID</param>
+            <param name="process">工序信息</param>
+            <returns>更新结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.ProcessController.DeleteProcess(System.Int64)">
+            <summary>
+            删除工序
+            </summary>
+            <param name="id">工序ID</param>
+            <returns>删除结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.ProcessController.BatchDeleteProcesses(System.Collections.Generic.List{System.Int64})">
+            <summary>
+            批量删除工序
+            </summary>
+            <param name="ids">工序ID列表</param>
+            <returns>删除结果</returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController">
+            <summary>
+            高级分析控制器
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.GetProductionEfficiencyAnalysis(System.DateTimeOffset,System.DateTimeOffset,System.String)">
+            <summary>
+            获取生产效率分析
+            </summary>
+            <param name="from">开始时间</param>
+            <param name="to">结束时间</param>
+            <param name="workshopCode">车间代码（可选）</param>
+            <returns>生产效率分析结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.GetQualityTrendAnalysis(System.DateTimeOffset,System.DateTimeOffset,System.String)">
+            <summary>
+            获取质量趋势分析
+            </summary>
+            <param name="from">开始时间</param>
+            <param name="to">结束时间</param>
+            <param name="productModel">产品型号（可选）</param>
+            <returns>质量趋势分析结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.GetEquipmentHealthAnalysis(System.String)">
+            <summary>
+            获取设备健康度分析
+            </summary>
+            <param name="equipmentCode">设备代码（可选）</param>
+            <returns>设备健康度分析结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.GetEnergyConsumptionAnalysis(System.DateTimeOffset,System.DateTimeOffset,System.String)">
+            <summary>
+            获取能耗分析
+            </summary>
+            <param name="from">开始时间</param>
+            <param name="to">结束时间</param>
+            <param name="workshopCode">车间代码（可选）</param>
+            <returns>能耗分析结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.PredictCapacity(System.String,System.Int32,System.DateTimeOffset)">
+            <summary>
+            预测生产产能
+            </summary>
+            <param name="productModel">产品型号</param>
+            <param name="plannedQuantity">计划数量</param>
+            <param name="targetDate">目标日期</param>
+            <returns>产能预测结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.DetectAnomalies(System.String,System.DateTimeOffset,System.DateTimeOffset)">
+            <summary>
+            异常检测
+            </summary>
+            <param name="dataType">数据类型</param>
+            <param name="from">开始时间</param>
+            <param name="to">结束时间</param>
+            <returns>异常检测结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.GetSmartManufacturingMetrics(System.DateTimeOffset,System.DateTimeOffset)">
+            <summary>
+            获取智能制造指标
+            </summary>
+            <param name="from">开始时间</param>
+            <param name="to">结束时间</param>
+            <returns>智能制造指标</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.GenerateOptimizationSuggestions(System.String,System.Nullable{System.DateTimeOffset})">
+            <summary>
+            生成优化建议
+            </summary>
+            <param name="workshopCode">车间代码</param>
+            <param name="analysisDate">分析日期</param>
+            <returns>优化建议</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.GetRealTimeAnalyticsDashboard">
+            <summary>
+            获取实时分析仪表板
+            </summary>
+            <returns>实时分析仪表板数据</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.PredictQuality(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            预测产品质量
+            </summary>
+            <param name="batchNumber">批次号</param>
+            <param name="processParameters">工艺参数</param>
+            <returns>质量预测结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.TrainQualityPredictionModel(System.Collections.Generic.IEnumerable{BatteryPackingMES.Core.Models.Analytics.QualityTrainingData})">
+            <summary>
+            训练质量预测模型
+            </summary>
+            <param name="trainingData">训练数据</param>
+            <returns>模型训练结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.PredictEquipmentFailure(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            预测设备故障
+            </summary>
+            <param name="equipmentCode">设备代码</param>
+            <param name="sensorData">传感器数据</param>
+            <returns>设备故障预测结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.OptimizeProductionParameters(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            优化生产参数
+            </summary>
+            <param name="processCode">工艺代码</param>
+            <param name="productModel">产品型号</param>
+            <param name="currentParameters">当前参数</param>
+            <returns>参数优化结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.GetModelPerformanceMetrics(System.String)">
+            <summary>
+            获取模型性能指标
+            </summary>
+            <param name="modelId">模型ID</param>
+            <returns>模型性能指标</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.PredictProductionPlanCompletion(System.String)">
+            <summary>
+            预测生产计划完成情况
+            </summary>
+            <param name="planId">计划ID</param>
+            <returns>生产计划预测结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.PredictInventoryDemand(System.String,System.Int32)">
+            <summary>
+            预测库存需求
+            </summary>
+            <param name="materialCode">物料代码</param>
+            <param name="forecastDays">预测天数</param>
+            <returns>库存需求预测结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.PredictMaintenanceNeeds(System.String)">
+            <summary>
+            预测设备维护需求
+            </summary>
+            <param name="equipmentCode">设备代码</param>
+            <returns>维护需求预测结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.PredictEnergyConsumption(System.String,System.DateTimeOffset)">
+            <summary>
+            预测能耗
+            </summary>
+            <param name="workshopCode">车间代码</param>
+            <param name="targetDate">目标日期</param>
+            <returns>能耗预测结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AdvancedAnalyticsController.PredictQualityRisk(System.String,System.String)">
+            <summary>
+            预测质量风险
+            </summary>
+            <param name="batchNumber">批次号</param>
+            <param name="processStage">工艺阶段</param>
+            <returns>质量风险预测结果</returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.AuthController">
+            <summary>
+            认证控制器 V2.0
+            增强版本，包含更多功能和改进的响应格式
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AuthController.Login(BatteryPackingMES.Api.Controllers.V2.LoginRequestV2)">
+            <summary>
+            用户登录 V2.0 - 增强版本
+            </summary>
+            <param name="request">登录请求</param>
+            <returns>登录结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AuthController.RefreshTokenBatch(BatteryPackingMES.Api.Controllers.V2.BatchRefreshTokenRequest)">
+            <summary>
+            批量刷新令牌 V2.0 - 新功能
+            </summary>
+            <param name="request">批量刷新请求</param>
+            <returns>刷新结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AuthController.GetProfile">
+            <summary>
+            获取当前用户详细信息 V2.0 - 增强版本
+            </summary>
+            <returns>用户详细信息</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AuthController.GenerateDeviceFingerprint(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            生成设备指纹
+            </summary>
+            <param name="request">HTTP请求</param>
+            <returns>设备指纹</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AuthController.GetUserPermissions(System.Int64)">
+            <summary>
+            获取用户权限
+            </summary>
+            <param name="userId">用户ID</param>
+            <returns>权限列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AuthController.GetUserRoles(System.Int64)">
+            <summary>
+            获取用户角色
+            </summary>
+            <param name="userId">用户ID</param>
+            <returns>角色列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AuthController.CalculateProfileCompletion(System.Collections.Generic.IEnumerable{System.Security.Claims.Claim})">
+            <summary>
+            计算用户资料完整度
+            </summary>
+            <param name="claims">用户声明</param>
+            <returns>完整度百分比</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.AuthController.GetSecurityLevel(System.Collections.Generic.IEnumerable{System.Security.Claims.Claim})">
+            <summary>
+            获取安全级别
+            </summary>
+            <param name="claims">用户声明</param>
+            <returns>安全级别</returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.LoginRequestV2">
+            <summary>
+            登录请求 V2.0
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.LoginRequestV2.Username">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.LoginRequestV2.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.LoginRequestV2.RememberMe">
+            <summary>
+            记住登录状态（V2.0 新增）
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.LoginRequestV2.ClientType">
+            <summary>
+            客户端类型（V2.0 新增）
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.LoginResponseV2">
+            <summary>
+            登录响应 V2.0
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.LoginResponseV2.Token">
+            <summary>
+            JWT令牌
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.LoginResponseV2.RefreshToken">
+            <summary>
+            刷新令牌
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.LoginResponseV2.TokenExpiry">
+            <summary>
+            令牌过期时间
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.LoginResponseV2.User">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.LoginResponseV2.SessionInfo">
+            <summary>
+            会话信息（V2.0 新增）
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.UserInfoV2">
+            <summary>
+            用户信息 V2.0
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserInfoV2.Id">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserInfoV2.Username">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserInfoV2.RealName">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserInfoV2.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserInfoV2.LastLoginTime">
+            <summary>
+            最后登录时间（V2.0 新增）
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserInfoV2.LastLoginIp">
+            <summary>
+            最后登录IP（V2.0 新增）
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.SessionInfo">
+            <summary>
+            会话信息（V2.0 新增）
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.SessionInfo.LoginTime">
+            <summary>
+            登录时间
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.SessionInfo.IpAddress">
+            <summary>
+            IP地址
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.SessionInfo.UserAgent">
+            <summary>
+            用户代理
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.SessionInfo.DeviceFingerprint">
+            <summary>
+            设备指纹
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.BatchRefreshTokenRequest">
+            <summary>
+            批量刷新令牌请求（V2.0 新增）
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.BatchRefreshTokenRequest.RefreshTokens">
+            <summary>
+            刷新令牌列表
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.BatchRefreshResponse">
+            <summary>
+            批量刷新响应（V2.0 新增）
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.BatchRefreshResponse.Results">
+            <summary>
+            刷新结果列表
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.BatchRefreshResponse.SuccessCount">
+            <summary>
+            成功数量
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.BatchRefreshResponse.FailureCount">
+            <summary>
+            失败数量
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.RefreshResult">
+            <summary>
+            刷新结果（V2.0 新增）
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.RefreshResult.OriginalRefreshToken">
+            <summary>
+            原始刷新令牌
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.RefreshResult.Success">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.RefreshResult.NewToken">
+            <summary>
+            新的JWT令牌
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.RefreshResult.NewRefreshToken">
+            <summary>
+            新的刷新令牌
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.RefreshResult.ErrorMessage">
+            <summary>
+            错误消息
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.UserProfileV2">
+            <summary>
+            用户档案 V2.0（V2.0 新增）
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserProfileV2.Id">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserProfileV2.Username">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserProfileV2.RealName">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserProfileV2.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserProfileV2.Permissions">
+            <summary>
+            权限列表
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserProfileV2.Roles">
+            <summary>
+            角色列表
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserProfileV2.LastActivity">
+            <summary>
+            最后活动时间
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserProfileV2.ProfileCompletion">
+            <summary>
+            资料完整度百分比
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UserProfileV2.SecurityLevel">
+            <summary>
+            安全级别
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.CodeGenerationController">
+            <summary>
+            编码生成管理控制器
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.CodeGenerationController.GenerateBatchCode(System.String,System.String)">
+            <summary>
+            生成批次编码
+            </summary>
+            <param name="productType">产品类型</param>
+            <param name="customPrefix">自定义前缀</param>
+            <returns>批次编码</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.CodeGenerationController.GenerateSerialNumbers(System.String,System.String,System.Int32)">
+            <summary>
+            生成序列号
+            </summary>
+            <param name="batchNumber">批次号</param>
+            <param name="productType">产品类型</param>
+            <param name="count">生成数量</param>
+            <returns>序列号列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.CodeGenerationController.GenerateBarcode(System.String)">
+            <summary>
+            生成条形码
+            </summary>
+            <param name="serialNumber">序列号</param>
+            <returns>条形码</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.CodeGenerationController.MarkCodeUsed(BatteryPackingMES.Api.Controllers.V2.MarkCodeUsedRequest)">
+            <summary>
+            标记编码已使用
+            </summary>
+            <param name="request">标记请求</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.CodeGenerationController.GetGenerationHistory(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Int32,System.Int32)">
+            <summary>
+            获取编码生成历史
+            </summary>
+            <param name="codeType">编码类型</param>
+            <param name="startDate">开始日期</param>
+            <param name="endDate">结束日期</param>
+            <param name="pageIndex">页码</param>
+            <param name="pageSize">页大小</param>
+            <returns>生成历史列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.CodeGenerationController.ValidateCode(System.String)">
+            <summary>
+            验证编码
+            </summary>
+            <param name="code">编码</param>
+            <returns>验证结果</returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.MarkCodeUsedRequest">
+            <summary>
+            标记编码已使用请求
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.MarkCodeUsedRequest.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.MarkCodeUsedRequest.EntityType">
+            <summary>
+            关联实体类型
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.MarkCodeUsedRequest.EntityId">
+            <summary>
+            关联实体ID
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.CodeValidationResult">
+            <summary>
+            编码验证结果
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.CodeValidationResult.Code">
+            <summary>
+            编码
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.CodeValidationResult.IsValid">
+            <summary>
+            是否有效
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.CodeValidationResult.ErrorMessage">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.EquipmentController">
+            <summary>
+            设备管理控制器 V2
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.EquipmentController.GetEquipment(BatteryPackingMES.Core.Interfaces.EquipmentQueryRequest)">
+            <summary>
+            分页查询设备
+            </summary>
+            <param name="request">查询条件</param>
+            <returns>分页的设备列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.EquipmentController.GetEquipment(System.Int64)">
+            <summary>
+            根据ID获取设备
+            </summary>
+            <param name="id">设备ID</param>
+            <returns>设备信息</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.EquipmentController.CreateEquipment(BatteryPackingMES.Core.Entities.Equipment)">
+            <summary>
+            创建设备
+            </summary>
+            <param name="equipment">设备信息</param>
+            <returns>设备ID</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.EquipmentController.UpdateEquipment(System.Int64,BatteryPackingMES.Core.Entities.Equipment)">
+            <summary>
+            更新设备信息
+            </summary>
+            <param name="id">设备ID</param>
+            <param name="equipment">设备信息</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.EquipmentController.UpdateEquipmentStatus(System.Int64,BatteryPackingMES.Api.Controllers.V2.UpdateEquipmentStatusRequest)">
+            <summary>
+            更新设备状态
+            </summary>
+            <param name="id">设备ID</param>
+            <param name="request">状态更新请求</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.EquipmentController.GetMaintenanceRecords(System.Int64,System.Int32,System.Int32)">
+            <summary>
+            获取设备维护记录
+            </summary>
+            <param name="id">设备ID</param>
+            <param name="pageIndex">页码</param>
+            <param name="pageSize">页大小</param>
+            <returns>维护记录列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.EquipmentController.CreateMaintenanceRecord(BatteryPackingMES.Core.Entities.EquipmentMaintenanceRecord)">
+            <summary>
+            创建维护记录
+            </summary>
+            <param name="record">维护记录</param>
+            <returns>记录ID</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.EquipmentController.GetEquipmentStatistics">
+            <summary>
+            获取设备统计信息
+            </summary>
+            <returns>统计信息</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.EquipmentController.GetEquipmentPerformance(System.Int64,System.DateTime,System.DateTime)">
+            <summary>
+            获取设备性能数据
+            </summary>
+            <param name="id">设备ID</param>
+            <param name="startDate">开始日期</param>
+            <param name="endDate">结束日期</param>
+            <returns>性能数据</returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.UpdateEquipmentStatusRequest">
+            <summary>
+            更新设备状态请求
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UpdateEquipmentStatusRequest.Status">
+            <summary>
+            新状态
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UpdateEquipmentStatusRequest.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.InventoryController">
+            <summary>
+            库存管理控制器
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.CreateWarehouse(BatteryPackingMES.Core.Entities.Warehouse)">
+            <summary>
+            创建仓库
+            </summary>
+            <param name="warehouse">仓库信息</param>
+            <returns>仓库ID</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetWarehouses">
+            <summary>
+            获取仓库列表
+            </summary>
+            <returns>仓库列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetWarehouse(System.Int64)">
+            <summary>
+            根据ID获取仓库信息
+            </summary>
+            <param name="id">仓库ID</param>
+            <returns>仓库信息</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.UpdateWarehouse(System.Int64,BatteryPackingMES.Core.Entities.Warehouse)">
+            <summary>
+            更新仓库信息
+            </summary>
+            <param name="id">仓库ID</param>
+            <param name="warehouse">仓库信息</param>
+            <returns>更新结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.DeleteWarehouse(System.Int64)">
+            <summary>
+            删除仓库
+            </summary>
+            <param name="id">仓库ID</param>
+            <returns>删除结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.CreateLocation(BatteryPackingMES.Core.Entities.WarehouseLocation)">
+            <summary>
+            创建库位
+            </summary>
+            <param name="location">库位信息</param>
+            <returns>库位ID</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetLocationsByWarehouse(System.Int64)">
+            <summary>
+            获取仓库的库位列表
+            </summary>
+            <param name="warehouseId">仓库ID</param>
+            <returns>库位列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetAvailableLocations(System.Int64)">
+            <summary>
+            获取可用库位列表
+            </summary>
+            <param name="warehouseId">仓库ID</param>
+            <returns>可用库位列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetLocation(System.Int64)">
+            <summary>
+            根据ID获取库位信息
+            </summary>
+            <param name="id">库位ID</param>
+            <returns>库位信息</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.UpdateLocation(System.Int64,BatteryPackingMES.Core.Entities.WarehouseLocation)">
+            <summary>
+            更新库位信息
+            </summary>
+            <param name="id">库位ID</param>
+            <param name="location">库位信息</param>
+            <returns>更新结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.DeleteLocation(System.Int64)">
+            <summary>
+            删除库位
+            </summary>
+            <param name="id">库位ID</param>
+            <returns>删除结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.Inbound(BatteryPackingMES.Core.Interfaces.InboundRequest)">
+            <summary>
+            入库操作
+            </summary>
+            <param name="request">入库请求</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.Outbound(BatteryPackingMES.Core.Interfaces.OutboundRequest)">
+            <summary>
+            出库操作
+            </summary>
+            <param name="request">出库请求</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.Transfer(BatteryPackingMES.Core.Interfaces.TransferRequest)">
+            <summary>
+            移库操作
+            </summary>
+            <param name="request">移库请求</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.AdjustInventory(BatteryPackingMES.Core.Interfaces.AdjustmentRequest)">
+            <summary>
+            库存调整
+            </summary>
+            <param name="request">调整请求</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.FreezeInventory(BatteryPackingMES.Core.Interfaces.FreezeRequest)">
+            <summary>
+            冻结库存
+            </summary>
+            <param name="request">冻结请求</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.UnfreezeInventory(BatteryPackingMES.Core.Interfaces.UnfreezeRequest)">
+            <summary>
+            解冻库存
+            </summary>
+            <param name="request">解冻请求</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetInventoryByBatch(System.String)">
+            <summary>
+            根据批次号查询库存
+            </summary>
+            <param name="batchNumber">批次号</param>
+            <returns>库存记录列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetInventoryBySerialNumber(System.String)">
+            <summary>
+            根据序列号查询库存
+            </summary>
+            <param name="serialNumber">序列号</param>
+            <returns>库存记录</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.QueryInventory(BatteryPackingMES.Core.Interfaces.InventoryQueryRequest)">
+            <summary>
+            分页查询库存记录
+            </summary>
+            <param name="request">查询条件</param>
+            <returns>分页的库存记录</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetWarehouseInventorySummary(System.Int64)">
+            <summary>
+            获取仓库库存汇总
+            </summary>
+            <param name="warehouseId">仓库ID</param>
+            <returns>库存汇总信息</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetInventoryDetails(BatteryPackingMES.Core.Interfaces.InventoryDetailRequest)">
+            <summary>
+            获取库存明细
+            </summary>
+            <param name="request">查询条件</param>
+            <returns>库存明细列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetInventoryTransactions(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            获取库存事务历史
+            </summary>
+            <param name="materialCode">物料编码</param>
+            <param name="startDate">开始日期</param>
+            <param name="endDate">结束日期</param>
+            <returns>事务历史列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.ConfigureInventoryAlert(BatteryPackingMES.Core.Entities.InventoryAlert)">
+            <summary>
+            配置库存预警
+            </summary>
+            <param name="alert">预警配置</param>
+            <returns>配置结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetInventoryAlerts(System.Nullable{System.Int64})">
+            <summary>
+            获取预警配置列表
+            </summary>
+            <param name="warehouseId">仓库ID（可选）</param>
+            <returns>预警配置列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.CheckInventoryAlerts">
+            <summary>
+            检查库存预警
+            </summary>
+            <returns>预警结果列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetInventoryTurnoverAnalysis(System.DateTime,System.DateTime)">
+            <summary>
+            获取库存周转率分析
+            </summary>
+            <param name="startDate">开始日期</param>
+            <param name="endDate">结束日期</param>
+            <returns>周转率分析结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetInventoryValueAnalysis(System.Nullable{System.Int64})">
+            <summary>
+            获取库存价值分析
+            </summary>
+            <param name="warehouseId">仓库ID（可选）</param>
+            <returns>价值分析结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetAbcAnalysis(System.DateTime,System.DateTime)">
+            <summary>
+            获取ABC分析
+            </summary>
+            <param name="startDate">开始日期</param>
+            <param name="endDate">结束日期</param>
+            <returns>ABC分析结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.InventoryController.GetInventoryAgingAnalysis(System.Nullable{System.Int64})">
+            <summary>
+            获取库存老化分析
+            </summary>
+            <param name="warehouseId">仓库ID（可选）</param>
+            <returns>老化分析结果</returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.MessageQueueController">
+            <summary>
+            消息队列控制器
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MessageQueueController.PublishProductionLineStatusAsync(BatteryPackingMES.Core.Models.MessageTypes.ProductionLineStatusMessage)">
+            <summary>
+            发布生产线状态变更消息
+            </summary>
+            <param name="message">消息内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MessageQueueController.PublishQualityCheckAsync(BatteryPackingMES.Core.Models.MessageTypes.QualityCheckMessage)">
+            <summary>
+            发布质量检测消息
+            </summary>
+            <param name="message">消息内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MessageQueueController.PublishEquipmentAlarmAsync(BatteryPackingMES.Core.Models.MessageTypes.EquipmentAlarmMessage)">
+            <summary>
+            发布设备告警消息
+            </summary>
+            <param name="message">消息内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MessageQueueController.PublishProductionOrderAsync(BatteryPackingMES.Core.Models.MessageTypes.ProductionOrderMessage)">
+            <summary>
+            发布生产订单消息
+            </summary>
+            <param name="message">消息内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MessageQueueController.GetHistoryMessagesAsync(System.String,System.Int32)">
+            <summary>
+            获取历史消息
+            </summary>
+            <param name="channel">频道名称</param>
+            <param name="count">数量</param>
+            <returns></returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.MonitoringController">
+            <summary>
+            监控管理控制器
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MonitoringController.GetSystemHealth">
+            <summary>
+            获取系统健康状态
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MonitoringController.GetMetrics(System.String,System.DateTime,System.DateTime)">
+            <summary>
+            获取指标数据
+            </summary>
+            <param name="metricName">指标名称</param>
+            <param name="startTime">开始时间</param>
+            <param name="endTime">结束时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MonitoringController.RecordMetric(BatteryPackingMES.Api.Controllers.V2.MetricRequest)">
+            <summary>
+            记录自定义指标
+            </summary>
+            <param name="request">指标请求</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MonitoringController.GetDataQualityReport(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            获取数据质量报告
+            </summary>
+            <param name="entityType">实体类型</param>
+            <param name="startTime">开始时间</param>
+            <param name="endTime">结束时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MonitoringController.GetValidationResults(System.String,System.Nullable{System.Int64},System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            获取验证结果
+            </summary>
+            <param name="entityType">实体类型</param>
+            <param name="entityId">实体ID</param>
+            <param name="startTime">开始时间</param>
+            <param name="endTime">结束时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MonitoringController.RunDataQualityCheck(System.String)">
+            <summary>
+            运行数据质量检查
+            </summary>
+            <param name="entityType">实体类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MonitoringController.AddValidationRule(BatteryPackingMES.Core.Entities.DataValidationRule)">
+            <summary>
+            添加验证规则
+            </summary>
+            <param name="rule">验证规则</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MonitoringController.GetAuditLogs(System.String,System.Nullable{System.Int64},System.String,System.Nullable{System.Int64},System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Int32,System.Int32)">
+            <summary>
+            获取审计日志
+            </summary>
+            <param name="entityType">实体类型</param>
+            <param name="entityId">实体ID</param>
+            <param name="actionType">操作类型</param>
+            <param name="userId">用户ID</param>
+            <param name="startTime">开始时间</param>
+            <param name="endTime">结束时间</param>
+            <param name="pageIndex">页码</param>
+            <param name="pageSize">页大小</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MonitoringController.GetEntityAuditHistory(System.String,System.Int64)">
+            <summary>
+            获取实体审计历史
+            </summary>
+            <param name="entityType">实体类型</param>
+            <param name="entityId">实体ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MonitoringController.GetAuditReport(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+            获取审计统计报告
+            </summary>
+            <param name="startTime">开始时间</param>
+            <param name="endTime">结束时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.MonitoringController.ExportAuditLogs(System.DateTime,System.DateTime,System.String,System.String)">
+            <summary>
+            导出审计日志
+            </summary>
+            <param name="startTime">开始时间</param>
+            <param name="endTime">结束时间</param>
+            <param name="entityType">实体类型</param>
+            <param name="format">导出格式</param>
+            <returns></returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.MetricRequest">
+            <summary>
+            指标请求模型
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.MetricRequest.MetricName">
+            <summary>
+            指标名称
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.MetricRequest.Value">
+            <summary>
+            指标值
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.MetricRequest.MetricType">
+            <summary>
+            指标类型
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.MetricRequest.Tags">
+            <summary>
+            标签
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.ProductionBatchController">
+            <summary>
+            生产批次管理控制器 V2
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.ProductionBatchController.GetBatches(System.Int32,System.Int32,System.Nullable{BatteryPackingMES.Core.Enums.BatchStatus})">
+            <summary>
+            分页查询生产批次
+            </summary>
+            <param name="pageIndex">页码</param>
+            <param name="pageSize">页大小</param>
+            <param name="status">状态筛选</param>
+            <returns>分页的生产批次列表</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.ProductionBatchController.GetBatch(System.Int64)">
+            <summary>
+            根据ID获取生产批次
+            </summary>
+            <param name="id">批次ID</param>
+            <returns>生产批次信息</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.ProductionBatchController.CreateBatch(BatteryPackingMES.Core.Entities.ProductionBatch)">
+            <summary>
+            创建生产批次
+            </summary>
+            <param name="batch">批次信息</param>
+            <returns>批次ID</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.ProductionBatchController.UpdateBatchStatus(System.Int64,BatteryPackingMES.Api.Controllers.V2.UpdateBatchStatusRequest)">
+            <summary>
+            更新批次状态
+            </summary>
+            <param name="id">批次ID</param>
+            <param name="request">状态更新请求</param>
+            <returns>操作结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.ProductionBatchController.GetBatchStatistics(System.DateTime,System.DateTime)">
+            <summary>
+            获取批次统计信息
+            </summary>
+            <param name="startDate">开始日期</param>
+            <param name="endDate">结束日期</param>
+            <returns>统计信息</returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.UpdateBatchStatusRequest">
+            <summary>
+            更新批次状态请求
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UpdateBatchStatusRequest.Status">
+            <summary>
+            新状态
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.UpdateBatchStatusRequest.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.BatchStatisticsSummary">
+            <summary>
+            批次统计汇总
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.QualityController">
+            <summary>
+            质量管理控制器
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.QualityController.PerformInspection(BatteryPackingMES.Api.Controllers.V2.QualityInspectionRequest)">
+            <summary>
+            质量检测
+            </summary>
+            <param name="request">检测请求</param>
+            <returns>检测结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.QualityController.PerformBatchInspection(BatteryPackingMES.Api.Controllers.V2.BatchQualityInspectionRequest)">
+            <summary>
+            批量质量检测
+            </summary>
+            <param name="request">批量检测请求</param>
+            <returns>检测结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.QualityController.GetProductTraceability(System.String)">
+            <summary>
+            产品追溯查询
+            </summary>
+            <param name="serialNumber">序列号</param>
+            <returns>追溯信息</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.QualityController.GetBatchQualityStatistics(System.String)">
+            <summary>
+            批次质量统计
+            </summary>
+            <param name="batchNumber">批次号</param>
+            <returns>质量统计</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.QualityController.HandleDefectiveProduct(BatteryPackingMES.Api.Controllers.V2.DefectiveHandlingRequest)">
+            <summary>
+            不合格品管理
+            </summary>
+            <param name="request">处理请求</param>
+            <returns>处理结果</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.QualityController.GetQualityReport(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String)">
+            <summary>
+            质量报表查询
+            </summary>
+            <param name="startDate">开始日期</param>
+            <param name="endDate">结束日期</param>
+            <param name="productType">产品类型</param>
+            <returns>质量报表</returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.QualityInspectionRequest">
+            <summary>
+            质量检测请求
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.QualityInspectionRequest.SerialNumber">
+            <summary>
+            序列号
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.QualityInspectionRequest.QualityGrade">
+            <summary>
+            质量等级
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.QualityInspectionRequest.QualityNotes">
+            <summary>
+            质量备注
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.QualityInspectionRequest.InspectorName">
+            <summary>
+            检查员姓名
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.QualityInspectionRequest.WorkstationCode">
+            <summary>
+            工作站代码
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.QualityInspectionRequest.TestData">
+            <summary>
+            测试数据
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.BatchQualityInspectionRequest">
+            <summary>
+            批量质量检测请求
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.BatchQualityInspectionRequest.InspectorName">
+            <summary>
+            检查员姓名
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.BatchQualityInspectionRequest.WorkstationCode">
+            <summary>
+            工作站代码
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.BatchQualityInspectionRequest.Items">
+            <summary>
+            检测项目
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.QualityInspectionItem">
+            <summary>
+            质量检测项目
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.QualityInspectionItem.SerialNumber">
+            <summary>
+            序列号
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.QualityInspectionItem.QualityGrade">
+            <summary>
+            质量等级
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.QualityInspectionItem.QualityNotes">
+            <summary>
+            质量备注
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.DefectiveHandlingRequest">
+            <summary>
+            不合格品处理请求
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.DefectiveHandlingRequest.SerialNumber">
+            <summary>
+            序列号
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.DefectiveHandlingRequest.HandlingAction">
+            <summary>
+            处理方式
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.DefectiveHandlingRequest.HandlerName">
+            <summary>
+            处理人员
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Controllers.V2.DefectiveHandlingRequest.HandlingNotes">
+            <summary>
+            处理说明
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Controllers.V2.ReportsController">
+            <summary>
+            报表控制器
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.ReportsController.GetProductionDailyReportAsync(System.DateTime,System.String)">
+            <summary>
+            生成生产日报
+            </summary>
+            <param name="date">日期</param>
+            <param name="lineCode">产线编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.ReportsController.GetQualityStatisticsReportAsync(System.DateTime,System.DateTime,System.String)">
+            <summary>
+            生成质量统计报表
+            </summary>
+            <param name="startDate">开始日期</param>
+            <param name="endDate">结束日期</param>
+            <param name="productModel">产品型号</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.ReportsController.GetEquipmentEfficiencyReportAsync(System.DateTime,System.DateTime,System.String)">
+            <summary>
+            生成设备效率报表
+            </summary>
+            <param name="startDate">开始日期</param>
+            <param name="endDate">结束日期</param>
+            <param name="equipmentCode">设备编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.ReportsController.GetExceptionAnalysisReportAsync(System.DateTime,System.DateTime,System.String)">
+            <summary>
+            生成异常分析报表
+            </summary>
+            <param name="startDate">开始日期</param>
+            <param name="endDate">结束日期</param>
+            <param name="alarmLevel">告警级别</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.ReportsController.GetProductionTrendReportAsync(System.DateTime,System.DateTime,BatteryPackingMES.Core.Models.Reports.ReportGroupBy)">
+            <summary>
+            生成产能趋势报表
+            </summary>
+            <param name="startDate">开始日期</param>
+            <param name="endDate">结束日期</param>
+            <param name="groupBy">分组方式</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.ReportsController.ExportProductionDailyReportToExcelAsync(System.DateTime,System.String)">
+            <summary>
+            导出生产日报到Excel
+            </summary>
+            <param name="date">日期</param>
+            <param name="lineCode">产线编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Controllers.V2.ReportsController.ExportQualityStatisticsReportToPdfAsync(System.DateTime,System.DateTime,System.String)">
+            <summary>
+            导出质量统计报表到PDF
+            </summary>
+            <param name="startDate">开始日期</param>
+            <param name="endDate">结束日期</param>
+            <param name="productModel">产品型号</param>
+            <returns></returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Extensions.ClaimsPrincipalExtensions">
+            <summary>
+            ClaimsPrincipal 扩展方法
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Extensions.ClaimsPrincipalExtensions.GetUserId(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            获取用户ID
+            </summary>
+            <param name="principal">用户主体</param>
+            <returns>用户ID</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Extensions.ClaimsPrincipalExtensions.GetUserIdAsLong(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            获取用户ID（长整型）
+            </summary>
+            <param name="principal">用户主体</param>
+            <returns>用户ID</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Extensions.ClaimsPrincipalExtensions.GetUserName(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            获取用户名
+            </summary>
+            <param name="principal">用户主体</param>
+            <returns>用户名</returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Extensions.ModelStateExtensions">
+            <summary>
+            ModelStateDictionary 扩展方法
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Extensions.ModelStateExtensions.GetErrors(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)">
+            <summary>
+            获取所有错误信息
+            </summary>
+            <param name="modelState">模型状态</param>
+            <returns>错误信息列表</returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Extensions.PerformanceMonitoringMiddleware">
+            <summary>
+            性能监控中间件
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Extensions.PerformanceMonitoringMiddlewareExtensions">
+            <summary>
+            性能监控中间件扩展
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Extensions.PerformanceMonitoringMiddlewareExtensions.UsePerformanceMonitoring(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            使用性能监控中间件
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Extensions.ServiceCollectionExtensions">
+            <summary>
+            服务集合扩展
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Extensions.ServiceCollectionExtensions.AddCustomApiVersioning(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加API版本控制
+            </summary>
+            <param name="services">服务集合</param>
+            <returns>服务集合</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Extensions.ServiceCollectionExtensions.AddJwtAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            添加JWT认证
+            </summary>
+            <param name="services">服务集合</param>
+            <param name="configuration">配置</param>
+            <returns>服务集合</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Extensions.ServiceCollectionExtensions.AddPolicyBasedAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加基于策略的授权
+            </summary>
+            <param name="services">服务集合</param>
+            <returns>服务集合</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Extensions.ServiceCollectionExtensions.AddVersionedSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加版本化的Swagger
+            </summary>
+            <param name="services">服务集合</param>
+            <returns>服务集合</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Extensions.ServiceCollectionExtensions.UseVersionedSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Mvc.ApiExplorer.IApiVersionDescriptionProvider)">
+            <summary>
+            配置版本化的Swagger
+            </summary>
+            <param name="app">应用程序构建器</param>
+            <param name="provider">API版本描述提供者</param>
+            <returns>应用程序构建器</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Extensions.ServiceCollectionExtensions.AddRedisServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            配置Redis服务
+            </summary>
+            <param name="services">服务集合</param>
+            <param name="configuration">配置</param>
+            <returns>服务集合</returns>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Extensions.ServiceCollectionExtensions.AddReportServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            配置报表服务
+            </summary>
+            <param name="services">服务集合</param>
+            <returns>服务集合</returns>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Extensions.SwaggerDefaultValues">
+            <summary>
+            Swagger默认值操作过滤器
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.ApiResponse`1">
+            <summary>
+            API响应基类
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ApiResponse`1.Success">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ApiResponse`1.Message">
+            <summary>
+            响应消息
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ApiResponse`1.Data">
+            <summary>
+            响应数据
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ApiResponse`1.ErrorCode">
+            <summary>
+            错误代码
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ApiResponse`1.Timestamp">
+            <summary>
+            时间戳
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Models.ApiResponse`1.#ctor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Models.ApiResponse`1.#ctor(`0,System.String)">
+            <summary>
+            构造函数（成功响应）
+            </summary>
+            <param name="data">数据</param>
+            <param name="message">消息</param>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Models.ApiResponse`1.#ctor(System.String)">
+            <summary>
+            构造函数（失败响应）
+            </summary>
+            <param name="message">错误消息</param>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Models.ApiResponse`1.Ok(`0,System.String)">
+            <summary>
+            成功响应
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Models.ApiResponse`1.Fail(System.String,System.String)">
+            <summary>
+            失败响应
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Models.ApiResponse`1.CreateWithData``1(``0,System.String)">
+            <summary>
+            成功响应（带数据）
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.ApiResponse">
+            <summary>
+            无数据的API响应
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ApiResponse.Success">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ApiResponse.Message">
+            <summary>
+            响应消息
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ApiResponse.ErrorCode">
+            <summary>
+            错误代码
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ApiResponse.Timestamp">
+            <summary>
+            时间戳
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Models.ApiResponse.Ok(System.String)">
+            <summary>
+            成功响应
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Models.ApiResponse.OK``1(``0,System.String)">
+            <summary>
+            成功响应（带数据）
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Models.ApiResponse.Fail(System.String,System.String)">
+            <summary>
+            失败响应
+            </summary>
+        </member>
+        <member name="M:BatteryPackingMES.Api.Models.ApiResponse.Fail(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            失败响应（带错误列表）
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.PagedResult`1">
+            <summary>
+            分页结果
+            </summary>
+            <typeparam name="T">数据类型</typeparam>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.PagedResult`1.Items">
+            <summary>
+            数据项
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.PagedResult`1.Total">
+            <summary>
+            总数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.PagedResult`1.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.PagedResult`1.PageSize">
+            <summary>
+            页大小
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.PagedResult`1.TotalPages">
+            <summary>
+            总页数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.PagedResult`1.HasPreviousPage">
+            <summary>
+            是否有上一页
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.PagedResult`1.HasNextPage">
+            <summary>
+            是否有下一页
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.QualityInspectionResultDto">
+            <summary>
+            质量检测结果DTO
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualityInspectionResultDto.SerialNumber">
+            <summary>
+            序列号
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualityInspectionResultDto.QualityGrade">
+            <summary>
+            质量等级
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualityInspectionResultDto.QualityNotes">
+            <summary>
+            质量备注
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualityInspectionResultDto.InspectionTime">
+            <summary>
+            检测时间
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualityInspectionResultDto.Inspector">
+            <summary>
+            检查员
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualityInspectionResultDto.TraceabilityId">
+            <summary>
+            追溯记录ID
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.ProductTraceabilityDto">
+            <summary>
+            产品追溯DTO
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ProductTraceabilityDto.ProductInfo">
+            <summary>
+            产品信息
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ProductTraceabilityDto.BatchInfo">
+            <summary>
+            批次信息
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ProductTraceabilityDto.TraceabilityRecords">
+            <summary>
+            追溯记录列表
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.ProductInfoDto">
+            <summary>
+            产品信息DTO
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ProductInfoDto.SerialNumber">
+            <summary>
+            序列号
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ProductInfoDto.Barcode">
+            <summary>
+            条码
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ProductInfoDto.BatchNumber">
+            <summary>
+            批次号
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ProductInfoDto.ProductType">
+            <summary>
+            产品类型
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ProductInfoDto.ProductionDate">
+            <summary>
+            生产日期
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ProductInfoDto.QualityGrade">
+            <summary>
+            质量等级
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ProductInfoDto.QualityNotes">
+            <summary>
+            质量备注
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ProductInfoDto.ItemStatus">
+            <summary>
+            产品状态
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.BatchInfoDto">
+            <summary>
+            批次信息DTO
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchInfoDto.BatchNumber">
+            <summary>
+            批次号
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchInfoDto.ProductType">
+            <summary>
+            产品类型
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchInfoDto.PlannedQuantity">
+            <summary>
+            计划数量
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchInfoDto.ActualQuantity">
+            <summary>
+            实际数量
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchInfoDto.BatchStatus">
+            <summary>
+            批次状态
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchInfoDto.WorkOrder">
+            <summary>
+            工作订单
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchInfoDto.CustomerOrder">
+            <summary>
+            客户订单
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.TraceabilityRecordDto">
+            <summary>
+            追溯记录DTO
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.TraceabilityRecordDto.Id">
+            <summary>
+            记录ID
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.TraceabilityRecordDto.ProcessStep">
+            <summary>
+            工序步骤
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.TraceabilityRecordDto.OperationType">
+            <summary>
+            操作类型
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.TraceabilityRecordDto.OperationResult">
+            <summary>
+            操作结果
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.TraceabilityRecordDto.Operator">
+            <summary>
+            操作员
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.TraceabilityRecordDto.WorkstationCode">
+            <summary>
+            工作站代码
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.TraceabilityRecordDto.OperationTime">
+            <summary>
+            操作时间
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.TraceabilityRecordDto.TestParameters">
+            <summary>
+            测试参数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.TraceabilityRecordDto.QualityParameters">
+            <summary>
+            质量参数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.TraceabilityRecordDto.EnvironmentalData">
+            <summary>
+            环境数据
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.TraceabilityRecordDto.IsQualityCheckpoint">
+            <summary>
+            是否质量检查点
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.BatchQualityStatisticsDto">
+            <summary>
+            批次质量统计DTO
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchQualityStatisticsDto.BatchNumber">
+            <summary>
+            批次号
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchQualityStatisticsDto.TotalProducts">
+            <summary>
+            总产品数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchQualityStatisticsDto.GradeACount">
+            <summary>
+            A级产品数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchQualityStatisticsDto.GradeBCount">
+            <summary>
+            B级产品数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchQualityStatisticsDto.GradeCCount">
+            <summary>
+            C级产品数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchQualityStatisticsDto.DefectiveCount">
+            <summary>
+            不合格产品数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchQualityStatisticsDto.UngradedCount">
+            <summary>
+            未分级产品数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchQualityStatisticsDto.QualityRate">
+            <summary>
+            质量合格率（%）
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchQualityStatisticsDto.DefectiveRate">
+            <summary>
+            不合格率（%）
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.BatchQualityStatisticsDto.CompletionRate">
+            <summary>
+            完成率（%）
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.DefectiveHandlingResultDto">
+            <summary>
+            不合格品处理结果DTO
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.DefectiveHandlingResultDto.SerialNumber">
+            <summary>
+            序列号
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.DefectiveHandlingResultDto.HandlingAction">
+            <summary>
+            处理方式
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.DefectiveHandlingResultDto.NewStatus">
+            <summary>
+            新状态
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.DefectiveHandlingResultDto.HandledBy">
+            <summary>
+            处理人员
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.DefectiveHandlingResultDto.HandledTime">
+            <summary>
+            处理时间
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.DefectiveHandlingResultDto.TraceabilityId">
+            <summary>
+            追溯记录ID
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.QualityReportDto">
+            <summary>
+            质量报表DTO
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualityReportDto.ReportPeriod">
+            <summary>
+            报表期间
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualityReportDto.Summary">
+            <summary>
+            质量汇总
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualityReportDto.GradeDistribution">
+            <summary>
+            等级分布
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualityReportDto.DailyTrends">
+            <summary>
+            每日趋势
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.ReportPeriodDto">
+            <summary>
+            报表期间DTO
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ReportPeriodDto.StartDate">
+            <summary>
+            开始日期
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ReportPeriodDto.EndDate">
+            <summary>
+            结束日期
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.ReportPeriodDto.ProductType">
+            <summary>
+            产品类型
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.QualitySummaryDto">
+            <summary>
+            质量汇总DTO
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualitySummaryDto.TotalProducts">
+            <summary>
+            总产品数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualitySummaryDto.QualifiedProducts">
+            <summary>
+            合格产品数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualitySummaryDto.DefectiveProducts">
+            <summary>
+            不合格产品数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualitySummaryDto.QualityRate">
+            <summary>
+            质量合格率（%）
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.QualitySummaryDto.DefectiveRate">
+            <summary>
+            不合格率（%）
+            </summary>
+        </member>
+        <member name="T:BatteryPackingMES.Api.Models.DailyQualityTrendDto">
+            <summary>
+            每日质量趋势DTO
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.DailyQualityTrendDto.Date">
+            <summary>
+            日期
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.DailyQualityTrendDto.TotalProducts">
+            <summary>
+            总产品数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.DailyQualityTrendDto.QualifiedProducts">
+            <summary>
+            合格产品数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.DailyQualityTrendDto.DefectiveProducts">
+            <summary>
+            不合格产品数
+            </summary>
+        </member>
+        <member name="P:BatteryPackingMES.Api.Models.DailyQualityTrendDto.QualityRate">
+            <summary>
+            质量合格率（%）
+            </summary>
+        </member>
+        <member name="T:Program">
+            <summary>
+            Program类 - 用于集成测试
+            </summary>
+        </member>
+        <member name="T:GlobalExceptionMiddleware">
+            <summary>
+            全局异常处理中间件
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  # 锂电池MES API服务
+  battery-mes-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: battery-mes-api
+    ports:
+      - "5000:80"
+      - "5001:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=mysql;Port=3306;Database=BatteryPackingMES;Uid=root;Pwd=123456;charset=utf8mb4;SslMode=none;AllowPublicKeyRetrieval=true;
+      - ConnectionStrings__SlaveConnection=Server=mysql;Port=3306;Database=BatteryPackingMES;Uid=root;Pwd=123456;charset=utf8mb4;SslMode=none;AllowPublicKeyRetrieval=true;
+      - Redis__ConnectionString=redis:6379
+      - InfluxDB__Url=http://influxdb:8086
+    depends_on:
+      - mysql
+      - redis
+      - influxdb
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - battery-mes-network
+
+  # MySQL数据库
+  mysql:
+    image: mysql:8.0
+    container_name: battery-mes-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=BatteryPackingMES
+      - MYSQL_CHARACTER_SET_SERVER=utf8mb4
+      - MYSQL_COLLATION_SERVER=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./scripts/mysql-init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - battery-mes-network
+
+  # Redis缓存
+  redis:
+    image: redis:7-alpine
+    container_name: battery-mes-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --requirepass ""
+    networks:
+      - battery-mes-network
+
+  # InfluxDB时序数据库
+  influxdb:
+    image: influxdb:2.6
+    container_name: battery-mes-influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=password123
+      - DOCKER_INFLUXDB_INIT_ORG=battery-mes
+      - DOCKER_INFLUXDB_INIT_BUCKET=production-data
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=battery-mes-token-2024
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+      - influxdb_config:/etc/influxdb2
+    networks:
+      - battery-mes-network
+
+  # Grafana监控面板
+  grafana:
+    image: grafana/grafana:latest
+    container_name: battery-mes-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - influxdb
+    networks:
+      - battery-mes-network
+
+networks:
+  battery-mes-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+  influxdb_data:
+    driver: local
+  influxdb_config:
+    driver: local
+  grafana_data:
+    driver: local 
