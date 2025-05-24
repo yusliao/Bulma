@@ -4,6 +4,7 @@ using BatteryPackingMES.Core.Interfaces;
 using BatteryPackingMES.Core.Entities;
 using BatteryPackingMES.Api.Models;
 using BatteryPackingMES.Api.Extensions;
+using BatteryPackingMES.Infrastructure.Services;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using System.Text;
@@ -23,17 +24,20 @@ public class ProcessParameterController : ControllerBase
     private readonly IRepository<ProductionParameter> _parameterRepository;
     private readonly IRepository<Process> _processRepository;
     private readonly IAuditService _auditService;
+    private readonly IMessageQueueService _messageQueueService;
     private readonly ILogger<ProcessParameterController> _logger;
 
     public ProcessParameterController(
         IRepository<ProductionParameter> parameterRepository,
         IRepository<Process> processRepository,
         IAuditService auditService,
+        IMessageQueueService messageQueueService,
         ILogger<ProcessParameterController> logger)
     {
         _parameterRepository = parameterRepository;
         _processRepository = processRepository;
         _auditService = auditService;
+        _messageQueueService = messageQueueService;
         _logger = logger;
     }
 
@@ -148,6 +152,9 @@ public class ProcessParameterController : ControllerBase
                     };
 
                     var parameterId = await _parameterRepository.AddAsync(parameter);
+
+                    // 发布参数采集消息进行实时处理
+                    await PublishParameterCollectedMessage(parameter);
 
                     results.Add(new ParameterRecordResultDto
                     {
@@ -586,6 +593,38 @@ public class ProcessParameterController : ControllerBase
         }
 
         return csv.ToString();
+    }
+
+    /// <summary>
+    /// 发布参数采集消息
+    /// </summary>
+    /// <param name="parameter">参数</param>
+    /// <returns>任务</returns>
+    private async Task PublishParameterCollectedMessage(ProductionParameter parameter)
+    {
+        try
+        {
+            var message = new ParameterCollectedMessage
+            {
+                ProcessId = parameter.ProcessId,
+                ParameterName = parameter.ParameterName,
+                Value = decimal.TryParse(parameter.ParameterValue, out var val) ? val : 0,
+                Timestamp = parameter.CollectTime,
+                IsQualified = parameter.IsQualified,
+                EquipmentCode = parameter.EquipmentCode,
+                BatchNumber = parameter.BatchNumber,
+                Unit = parameter.Unit,
+                UpperLimit = parameter.UpperLimit,
+                LowerLimit = parameter.LowerLimit
+            };
+
+            await _messageQueueService.PublishAsync("parameter-collected", message);
+            _logger.LogDebug("发布参数采集消息: {ProcessId}-{ParameterName}", parameter.ProcessId, parameter.ParameterName);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "发布参数采集消息失败: {ProcessId}-{ParameterName}", parameter.ProcessId, parameter.ParameterName);
+        }
     }
 
     #endregion

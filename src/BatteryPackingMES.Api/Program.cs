@@ -54,6 +54,13 @@ builder.Services.AddRedisServices(builder.Configuration);
 // 配置报表服务
 builder.Services.AddReportServices();
 
+// 配置实时参数处理服务
+if (builder.Configuration.GetValue<bool>("RealTimeProcessing:EnableRealTimeProcessing", true))
+{
+    builder.Services.AddHostedService<RealTimeParameterProcessingService>();
+    builder.Services.AddScoped<RealTimeParameterProcessingService>();
+}
+
 // 配置基于策略的授权
 builder.Services.AddPolicyBasedAuthorization();
 
