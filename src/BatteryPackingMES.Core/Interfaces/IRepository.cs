@@ -25,6 +25,11 @@ public interface IRepository<T> where T : BaseEntity
     Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate);
 
     /// <summary>
+    /// 根据条件获取所有实体 (别名方法)
+    /// </summary>
+    Task<List<T>> GetListAsync(Expression<Func<T, bool>> predicate);
+
+    /// <summary>
     /// 根据条件获取第一个或默认实体
     /// </summary>
     Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate);

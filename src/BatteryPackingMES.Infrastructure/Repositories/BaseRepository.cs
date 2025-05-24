@@ -47,6 +47,14 @@ public class BaseRepository<T> : IRepository<T> where T : BaseEntity, new()
     }
 
     /// <summary>
+    /// 根据条件获取所有实体 (别名方法)
+    /// </summary>
+    public async Task<List<T>> GetListAsync(Expression<Func<T, bool>> predicate)
+    {
+        return await GetAllAsync(predicate);
+    }
+
+    /// <summary>
     /// 根据条件获取第一个或默认实体
     /// </summary>
     public async Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
