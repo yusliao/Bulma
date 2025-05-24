@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -179,7 +180,13 @@ public static class ServiceCollectionExtensions
 
             // 操作过滤器，用于版本控制
             options.OperationFilter<SwaggerDefaultValues>();
+            
+            // 文档过滤器，用于移除版本参数
+            options.DocumentFilter<ReplaceVersionWithExactValueInPath>();
         });
+
+        // 配置版本化的API Explorer
+        services.ConfigureOptions<ConfigureSwaggerOptions>();
 
         return services;
     }
@@ -312,5 +319,71 @@ public class SwaggerDefaultValues : IOperationFilter
 
             parameter.Required |= description.IsRequired;
         }
+    }
+}
+
+/// <summary>
+/// 替换版本占位符的文档过滤器
+/// </summary>
+public class ReplaceVersionWithExactValueInPath : IDocumentFilter
+{
+    public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
+    {
+        var paths = new OpenApiPaths();
+        
+        foreach (var path in swaggerDoc.Paths)
+        {
+            paths.Add(path.Key.Replace("v{version}", swaggerDoc.Info.Version), path.Value);
+        }
+        
+        swaggerDoc.Paths = paths;
+    }
+}
+
+/// <summary>
+/// 配置Swagger选项
+/// </summary>
+public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
+{
+    private readonly IApiVersionDescriptionProvider _provider;
+
+    public ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider)
+    {
+        _provider = provider;
+    }
+
+    public void Configure(SwaggerGenOptions options)
+    {
+        foreach (var description in _provider.ApiVersionDescriptions)
+        {
+            options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
+        }
+    }
+
+    private static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
+    {
+        var info = new OpenApiInfo
+        {
+            Title = "锂电池包装工序MES系统 API",
+            Version = description.ApiVersion.ToString(),
+            Description = "锂电池包装工序制造执行系统(MES) RESTful API",
+            Contact = new OpenApiContact
+            {
+                Name = "MES系统开发团队",
+                Email = "dev@batterypackingmes.com"
+            },
+            License = new OpenApiLicense
+            {
+                Name = "MIT License",
+                Url = new Uri("https://opensource.org/licenses/MIT")
+            }
+        };
+
+        if (description.IsDeprecated)
+        {
+            info.Description += " - 此API版本已弃用";
+        }
+
+        return info;
     }
 } 

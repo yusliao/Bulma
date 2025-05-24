@@ -1,0 +1,10 @@
+/.vs
+/src/BatteryPackingMES.Api/obj
+/src/BatteryPackingMES.Api/bin
+/src/BatteryPackingMES.Api/logs
+/src/BatteryPackingMES.Core/obj
+/src/BatteryPackingMES.Core/bin
+/src/BatteryPackingMES.Infrastructure/obj
+/src/BatteryPackingMES.Infrastructure/bin
+/tests/BatteryPackingMES.Tests/obj
+/tests/BatteryPackingMES.Tests/bin
