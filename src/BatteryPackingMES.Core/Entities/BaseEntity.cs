@@ -9,9 +9,9 @@ namespace BatteryPackingMES.Core.Entities;
 public abstract class BaseEntity
 {
     /// <summary>
-    /// 主键ID
+    /// 主键ID - 使用雪花算法生成分布式唯一ID
     /// </summary>
-    [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
+    [SugarColumn(IsPrimaryKey = true, IsIdentity = false)]
     [Display(Name = "主键ID")]
     public long Id { get; set; }
 
