@@ -189,7 +189,7 @@ docker-compose -f docker-compose.production.yml up -d
 ## 访问地址
 
 ### 开发环境
-- 🚀 API文档：http://localhost:5000/swagger
+- 🚀 API文档：http://localhost:60163/swagger
 - 📊 Grafana监控：http://localhost:3000 (admin/admin123)
 - 💾 MySQL数据库：localhost:3306 (root/123456)
 - 🔥 Redis缓存：localhost:6379

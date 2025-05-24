@@ -54,6 +54,10 @@ builder.Services.AddRedisServices(builder.Configuration);
 // 配置报表服务
 builder.Services.AddReportServices();
 
+// 配置事件驱动架构
+builder.Services.AddEventDrivenArchitecture(builder.Configuration);
+builder.Services.ConfigureEventSubscriptions();
+
 // 配置实时参数处理服务
 if (builder.Configuration.GetValue<bool>("RealTimeProcessing:EnableRealTimeProcessing", true))
 {
@@ -140,6 +144,7 @@ app.UseMiddleware<GlobalExceptionMiddleware>();
 app.MapControllers();
 
 Log.Information("锂电池包装工序MES系统启动成功");
+Log.Information("事件驱动架构已启用，支持实时事件处理和消息传递");
 Log.Information("API文档地址: {Url}", app.Environment.IsDevelopment() ? "https://localhost:5001" : "生产环境地址");
 
 app.Run();
